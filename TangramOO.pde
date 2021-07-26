@@ -14,6 +14,7 @@ final color GREEN = color(0, 255, 0);
 final color RED = color(255, 0, 0);
 final color BLACK = color(0, 0, 0);
 
+float scale;
 int level, blackPixels;
 PImage currLevel;
 Shape activeShape;
@@ -24,6 +25,7 @@ Term next, creative, save;
 void setup() {
   size(920, 700);
   level = 1;
+  scale = 1.0;
   drawGrid = true;
   activeShape = null;
   creativeMode = false;
@@ -186,6 +188,11 @@ void mousePressed() {
   }
 }
 
+void setScale(float newScale) {
+  for (Shape shape : shapes)
+    shape.setScaling(newScale);
+}
+
 void mouseDragged() {
   PVector position = new PVector(mouseX, mouseY);
   if (activeShape != null)
@@ -193,6 +200,14 @@ void mouseDragged() {
 }
 
 void keyPressed() {
+  if (key == 'u' || key == 'U'){
+    scale += 0.1;
+    setScale(scale);
+  }
+  if (key == 'j' || key == 'J') {
+    scale -= 0.1;
+    setScale(scale);
+  }
   if (key == 'g' || key == 'G')
     drawGrid = !drawGrid;
   if (activeShape != null) {
