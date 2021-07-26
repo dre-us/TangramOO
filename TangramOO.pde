@@ -15,7 +15,7 @@ final color RED = color(255, 0, 0);
 final color BLACK = color(0, 0, 0);
 
 float scale;
-int level, blackPixels;
+int level, blackPixels, maxLevels;
 PImage currLevel;
 Shape activeShape;
 boolean drawGrid, creativeMode;
@@ -25,6 +25,7 @@ Term next, creative, save;
 void setup() {
   size(920, 700);
   level = 1;
+  maxLevels = 7;
   scale = 1.0;
   drawGrid = true;
   activeShape = null;
@@ -138,7 +139,7 @@ void mouseClicked() {
         activeShape = shape;
   if (levelsButton.contains(mouseX, mouseY)) {
     if (get(mouseX, mouseY) == GREEN){
-      level = (level + 1)%8;
+      level = level + 1 <= maxLevels ? level + 1 : 1;
       currLevel = loadImage("lv_" + level + ".png");
       blackPixels = countBlackPixels();
       orderShapes();
@@ -165,7 +166,8 @@ void mouseClicked() {
         } else level.pixels[j] = EMPTY;
       }
     }
-    level.save("lv_8.png");
+    maxLevels += 1;
+    level.save("lv_" + maxLevels + ".png");
     background(0, 0, 0);
     drawGrid = tempDrawGrid;
   }
