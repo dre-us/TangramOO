@@ -138,7 +138,7 @@ void mouseClicked() {
         activeShape = shape;
   if (levelsButton.contains(mouseX, mouseY)) {
     if (get(mouseX, mouseY) == GREEN){
-      level = (level + 1)%7;
+      level = (level + 1)%8;
       currLevel = loadImage("lv_" + level + ".png");
       blackPixels = countBlackPixels();
       orderShapes();
@@ -165,7 +165,7 @@ void mouseClicked() {
         } else level.pixels[j] = EMPTY;
       }
     }
-    level.save("own_lv.png");
+    level.save("lv_8.png");
     background(0, 0, 0);
     drawGrid = tempDrawGrid;
   }
